@@ -1,0 +1,61 @@
+.list-group-item{
+    border: none;   
+}
+.list-group li a:hover{
+    text-decoration: none;
+
+}
+li{
+    list-style: none;
+}
+a{
+    color: black;
+}
+a:hover{
+    text-decoration: none;
+    color: black;
+}
+.table td {
+    border: none; 
+}
+
+#example input{
+
+    background-color: transparent;
+    border: none;
+}
+.list-group-item input{
+    background-color: transparent;
+    border: none;
+
+}
+h2{
+
+    margin-top: 140px;
+    margin-bottom: -100px;
+    float: right;
+}
+input[type="text"] {
+    text-align: center;
+}
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  margin-left: 1200px;
+   margin-top: -50px;
+  width: 50px;
+  height:50px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

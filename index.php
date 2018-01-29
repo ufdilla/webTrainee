@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<?php
+include 'dbCon.php';
+?>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Multiple Act</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+  <meta property="og:title" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+  <meta property="og:site_name" content="">
+  <meta property="og:description" content="">
+
+  <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+
+  <!-- Favicon -->
+  <link href="img/favicon.ico" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,700|Roboto:400,900" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<script type="text/javascript" src="script/delete_script.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+ <script src="jquery-3.3.1.min.js"></script>
+
+ <script>
+$(document).ready(function(){
+    $("#hapus").click(function(){
+        $(".actbut").remove();
+    });
+
+    $("button").click(function(){
+        $("#tdtodel").remove();
+    });
+
+    // $("#delete_class").click(function(){
+    // var del_id = $(this).attr('userId');
+    //   $.ajax({
+    //     type:'POST',
+    //     url:'delete_page.php',
+    //     data:'delete_id='+del_id,
+    //     success:function(data) {
+    //       if(data) {   // DO SOMETHING
+    //       } else { // DO SOMETHING }
+    //     }
+    //   });
+    // });
+
+    $("#addRow").click(function(){
+        $("#rowValue").append("<tr>"+
+        "<td></td>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='name[]'></td>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='address[]'></td>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='positionId[]'></td>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='groupId[]'></td>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='status[]'></td>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='phone[]'></td>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='email[]'></td>"+
+        "<td><button type='button' class='btn btn-link' id='' ><bold>x</bold></button></td>"+
+        "</tr>");
+    });
+
+    function saveRows() {
+    var rowName = "<td><input class='actbut' type='text' value=''  name='name[]'></td>";
+    var rowAddress = "<td><input class='actbut' type='text' value=''  name='address[]'></td>";
+    var rowPosition = "<td><input class='actbut' type='text' value=''  name='positionId[]'></td>";
+    var rowGroup = "<td><input class='actbut' type='text' value=''  name='groupId[]'></td>";
+    var rowStatus = "<td><input class='actbut' type='text' value=''  name='status[]'></td>";
+    var rowPhone = "<td><input class='actbut' type='text' value=''  name='phone[]'></td>";
+    var rowEmail = "<td><input class='actbut' type='text' value=''  name='email[]'></td>";
+    $("body").append(rowName, rowAddress, rowPosition, rowGroup, rowStatus, rowPhone, rowEmail);
+}
+});
+</script>
+
+<script type="text/javascript">
+	function toggleChecked(status)
+  {
+    $(".checkbox").each( function() {
+      $(this).attr("checked",status);
+    })
+  }1
+
+  function()
+  {
+    $('a.delete_single').on("click", function(event){
+      var $this = $(this);
+      var c = confirm('Are you sure to delete this message?');
+        if(c) {
+        $this.parents('tr').fadeOut(function(){
+        $this.remove();
+        });
+      }
+      return false;
+    }
+  }
+
+function deleteAll() {
+  $('.deleteall').on("click", function(event){
+    var tb = $(this).attr('title');
+    var sel = false;
+    var ch = $('#'+tb).find('tbody input[type=checkbox]');
+    var c = confirm('Continue delete?');
+    if(c) {
+      ch.each(function(){
+      var $this = $(this);
+        if($this.is(':checked')) {
+                sel = true;	//set to true if there is/are selected row
+          $this.parents('tr').fadeOut(function(){
+          $this.remove(); //remove row when animation is finished
+          });
+        }
+      });
+        if(!sel) alert('No data selected');
+    }
+    return false;
+    });
+  });
+
+
+
+</script>
+
+<body>
+  <!-- Page Content
+    ================================================== -->
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container text-center">
+      <div class="col-md-12">
+        <h1> Welcome </h1>
+        <a class="btn btn-full" href="#listData">Get Started</a>
+      </div>
+    </div>
+  </section>
+  <!-- /Hero -->
+
+  <!-- Header -->
+  <header id="header">
+    <div class="container">
+    </div>
+  </header>
+  <!-- #header -->
+
+  <!-- About -->
+  <section class="listData" id="listData">
+    <div class="container text-center">
+       <div class="col-md-12">
+          <form action="inserttable.php" method="post" id="formtable">
+            <div oncontextmenu ="event.preventDefault();$('#context-menu').show();$('#context-menu').offset({'top':mouseY,'left':mouseX})">
+              <table style="margin-left: 20px;margin-right: 20px; " class="table table-hover table-bordered" id="example" class="display" cellspacing="0" width="100%" >
+                <thead>
+                <tr>
+                <!--  <th class="thcek" style="color:black; background-color: white;text-align:center">&nbsp;</th> 
+                  <th scope="row">No</th> -->
+                  <th scope="row"></th> 
+                  <th scope="row">Nama</th>
+                  <th scope="row">Alamat</th>
+                  <th scope="row">Posisi</th>
+                  <th scope="row">Grup</th>
+                  <th scope="row">Status</th>
+                  <th scope="row">No. Telp.</th>
+                  <th scope="row">Email</th>
+                  <th>Remove</th>
+                </tr>
+                </thead>
+                <tbody  id='rowValue'>
+                <?php
+                $result = mysql_query("SELECT * FROM users ");
+                $indexinsert = 0;
+
+                $dServer = array();
+                $rows = array();
+                while ($row = mysql_fetch_assoc($result)) {
+                  $rows[] = $row;
+                }
+                ?>
+                <script type='text/javascript'>
+                    var nomor = 1;
+                    var rows = <?php echo json_encode($rows); ?>;
+                    var rows_arr = rows.toString().split(',');
+                    for (var i = 0, nomor = 1; i < rows_arr.length; nomor++, i++) {
+                        document.write("<tr id='tdtodel'>"+
+                        // "<td class='tdcek'><input type='checkbox' class='emp_checkbox' name='cek[] id='cek[]'  data-emp-id='" + rows[i]['id'] + "'  /></td>",
+                                // "<td style='width:30px;'><input class='actbut' type='text' value ='" + nomor + "' style='width:100%;' readonly/></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['userId'] + "' style='width:100%;' name='userId[]' readonly='true' hidden='true'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['name'] + "'style='width:100%;'  name='name[]'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['address'] + "'style='width:100%;' name='address[]'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['positionId'] + "'style='width:100%;' name='positionId[]'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['groupId'] + "'style='width:100%;' name='groupId[]'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['status'] + "'style='width:100%;' name='status[]'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['phone'] + "'style='width:100%;' name='phone[]'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['email'] + "'style='width:100%;' name='email[]'></td>",
+                                "<td><button type='button' class='btn btn-link' id='delete_id' ><bold>x</bold></button></td>"
+
+                                +"</tr>");
+                    }
+                </script>
+                </tbody>
+              </table>
+
+              <div style="margin-left:10px;" class="btn-group">
+                <button /* type="button" */ class="btn btn-link" id="addRow">Add</button>
+                <button /* type="button" */ class="btn btn-link" id="">Save</button>
+                <button type="button" class="btn btn-link" id="hapus" >Delete</button>
+                <button class="btn btn-link" type="button" onClick="location.reload();" VALUE="Reset">Refresh</button>
+              </div>
+            </div>
+          </form>
+			</div>
+    </div>
+  </section>
+  <!-- /About -->
+
+  <!-- Parallax -->
+ <footer class="site-footer">
+    <div class="bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-xs-12 text-lg-left text-center">
+            <p class="copyright-text">
+              easySoft Indonesia
+            </p>
+            <div class="credits">
+                <a href="https://bootstrapmade.com/">Bootstrap Templates</a> by BootstrapMade
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ </footer>
+
+  <a class="scrolltop" href="#"><span class="fa fa-angle-up"></span></a>
+
+  <!-- Required JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/superfish/hoverIntent.js"></script>
+  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="lib/tether/js/tether.min.js"></script>
+  <script src="lib/stellar/stellar.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/counterup/counterup.min.js"></script>
+  <script src="lib/waypoints/waypoints.min.js"></script>
+  <script src="lib/easing/easing.js"></script>
+  <script src="lib/stickyjs/sticky.js"></script>
+  <script src="lib/parallax/parallax.js"></script>
+  <script src="lib/lockfixed/lockfixed.min.js"></script>
+
+  <!-- Template Specisifc Custom Javascript File -->
+  <script src="js/custom.js"></script>
+  <script src="contactform/contactform.js"></script>
+
+  <?php mysql_close($connector); ?>
+</body>
+</html>
