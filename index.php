@@ -54,26 +54,13 @@ $(document).ready(function(){
         $(".actbut").remove();
     });
 
-    $("button").click(function(){
+    $("#btnRemove").click(function(){
         $("#tdtodel").remove();
     });
 
-    // $("#delete_class").click(function(){
-    // var del_id = $(this).attr('userId');
-    //   $.ajax({
-    //     type:'POST',
-    //     url:'delete_page.php',
-    //     data:'delete_id='+del_id,
-    //     success:function(data) {
-    //       if(data) {   // DO SOMETHING
-    //       } else { // DO SOMETHING }
-    //     }
-    //   });
-    // });
-
     $("#addRow").click(function(){
         $("#rowValue").append("<tr>"+
-        "<td></td>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='userId[]' hidden='true'></td>"+
         "<td><input class='actbut' type='text' value='' style='width:100%;' name='name[]'></td>"+
         "<td><input class='actbut' type='text' value='' style='width:100%;' name='address[]'></td>"+
         "<td><input class='actbut' type='text' value='' style='width:100%;' name='positionId[]'></td>"+
@@ -81,7 +68,7 @@ $(document).ready(function(){
         "<td><input class='actbut' type='text' value='' style='width:100%;' name='status[]'></td>"+
         "<td><input class='actbut' type='text' value='' style='width:100%;' name='phone[]'></td>"+
         "<td><input class='actbut' type='text' value='' style='width:100%;' name='email[]'></td>"+
-        "<td><button type='button' class='btn btn-link' id='' ><bold>x</bold></button></td>"+
+        "<td><button  class='btn btn-link' id='btnClass' ><bold>x</bold></button></td>"+
         "</tr>");
     });
 
@@ -96,54 +83,6 @@ $(document).ready(function(){
     $("body").append(rowName, rowAddress, rowPosition, rowGroup, rowStatus, rowPhone, rowEmail);
 }
 });
-</script>
-
-<script type="text/javascript">
-	function toggleChecked(status)
-  {
-    $(".checkbox").each( function() {
-      $(this).attr("checked",status);
-    })
-  }1
-
-  function()
-  {
-    $('a.delete_single').on("click", function(event){
-      var $this = $(this);
-      var c = confirm('Are you sure to delete this message?');
-        if(c) {
-        $this.parents('tr').fadeOut(function(){
-        $this.remove();
-        });
-      }
-      return false;
-    }
-  }
-
-function deleteAll() {
-  $('.deleteall').on("click", function(event){
-    var tb = $(this).attr('title');
-    var sel = false;
-    var ch = $('#'+tb).find('tbody input[type=checkbox]');
-    var c = confirm('Continue delete?');
-    if(c) {
-      ch.each(function(){
-      var $this = $(this);
-        if($this.is(':checked')) {
-                sel = true;	//set to true if there is/are selected row
-          $this.parents('tr').fadeOut(function(){
-          $this.remove(); //remove row when animation is finished
-          });
-        }
-      });
-        if(!sel) alert('No data selected');
-    }
-    return false;
-    });
-  });
-
-
-
 </script>
 
 <body>
@@ -171,8 +110,8 @@ function deleteAll() {
   <section class="listData" id="listData">
     <div class="container text-center">
        <div class="col-md-12">
-          <form action="inserttable.php" method="post" id="formtable">
-            <div oncontextmenu ="event.preventDefault();$('#context-menu').show();$('#context-menu').offset({'top':mouseY,'left':mouseX})">
+         <div oncontextmenu ="event.preventDefault();$('#context-menu').show();$('#context-menu').offset({'top':mouseY,'left':mouseX})">
+            <form action="inputData.php" method="post" id="formtable">
               <table style="margin-left: 20px;margin-right: 20px; " class="table table-hover table-bordered" id="example" class="display" cellspacing="0" width="100%" >
                 <thead>
                 <tr>
@@ -205,7 +144,11 @@ function deleteAll() {
                     var rows = <?php echo json_encode($rows); ?>;
                     var rows_arr = rows.toString().split(',');
                     for (var i = 0, nomor = 1; i < rows_arr.length; nomor++, i++) {
-                        document.write("<tr id='tdtodel'>"+
+                      document.write(
+                      "<input class='actbut' type='text' value='" + rows[i]['password'] + "' style='width:100%;' name='password[]' readonly='true' hidden='true'>",
+                      "<input class='actbut' type='text' value='" + rows[i]['photo'] + "' style='width:100%;' name='photo[]' readonly='true' hidden='true'>",
+
+                                "<tr id='tdtodel'>"+
                         // "<td class='tdcek'><input type='checkbox' class='emp_checkbox' name='cek[] id='cek[]'  data-emp-id='" + rows[i]['id'] + "'  /></td>",
                                 // "<td style='width:30px;'><input class='actbut' type='text' value ='" + nomor + "' style='width:100%;' readonly/></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['userId'] + "' style='width:100%;' name='userId[]' readonly='true' hidden='true'></td>",
@@ -216,22 +159,21 @@ function deleteAll() {
                                 "<td><input class='actbut' type='text' value='" + rows[i]['status'] + "'style='width:100%;' name='status[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['phone'] + "'style='width:100%;' name='phone[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['email'] + "'style='width:100%;' name='email[]'></td>",
-                                "<td><button type='button' class='btn btn-link' id='delete_id' ><bold>x</bold></button></td>"
-
+                                "<td><button type='button' class='btn' id='btnRemove'><bold>x</bold></button></td>"
                                 +"</tr>");
                     }
                 </script>
                 </tbody>
               </table>
-
+              
               <div style="margin-left:10px;" class="btn-group">
-                <button /* type="button" */ class="btn btn-link" id="addRow">Add</button>
-                <button /* type="button" */ class="btn btn-link" id="">Save</button>
-                <button type="button" class="btn btn-link" id="hapus" >Delete</button>
-                <button class="btn btn-link" type="button" onClick="location.reload();" VALUE="Reset">Refresh</button>
+                <button  type="button"  class="btn" id="addRow">Add</button>
+                <button  type="Submit"  class="btn" id="">Save</button>
+                <button type="button" class="btn" id="hapus" >Delete All</button>
+                <button class="btn" type="button" onClick="location.reload();" VALUE="Reset">Refresh</button>
               </div>
+            </form>
             </div>
-          </form>
 			</div>
     </div>
   </section>
