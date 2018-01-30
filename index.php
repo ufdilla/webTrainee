@@ -144,17 +144,21 @@ $(document).ready(function(){
                     var rows = <?php echo json_encode($rows); ?>;
                     var rows_arr = rows.toString().split(',');
                     for (var i = 0, nomor = 1; i < rows_arr.length; nomor++, i++) {
-                        document.write("<tr id='tdtodel'>"+
+                      document.write(
+                      "<input class='actbut' type='text' value='" + rows[i]['password'] + "' style='width:100%;' name='password[]' readonly='true' hidden='true'>",
+                      "<input class='actbut' type='text' value='" + rows[i]['photo'] + "' style='width:100%;' name='photo[]' readonly='true' hidden='true'>",
+
+                                "<tr id='tdtodel'>"+
                         // "<td class='tdcek'><input type='checkbox' class='emp_checkbox' name='cek[] id='cek[]'  data-emp-id='" + rows[i]['id'] + "'  /></td>",
                                 // "<td style='width:30px;'><input class='actbut' type='text' value ='" + nomor + "' style='width:100%;' readonly/></td>",
-                                "<td><input class='actbut' type='text' value='" + rows[i]['userId'] + "' style='width:100%;' name='userIdExist[]' readonly='true' hidden='true'></td>",
-                                "<td><input class='actbut' type='text' value='" + rows[i]['name'] + "'style='width:100%;'  name='nameExist[]'></td>",
-                                "<td><input class='actbut' type='text' value='" + rows[i]['address'] + "'style='width:100%;' name='addressExist[]'></td>",
-                                "<td><input class='actbut' type='text' value='" + rows[i]['positionId'] + "'style='width:100%;' name='positionIdExist[]'></td>",
-                                "<td><input class='actbut' type='text' value='" + rows[i]['groupId'] + "'style='width:100%;' name='groupIdExist[]'></td>",
-                                "<td><input class='actbut' type='text' value='" + rows[i]['status'] + "'style='width:100%;' name='statusExist[]'></td>",
-                                "<td><input class='actbut' type='text' value='" + rows[i]['phone'] + "'style='width:100%;' name='phoneExist[]'></td>",
-                                "<td><input class='actbut' type='text' value='" + rows[i]['email'] + "'style='width:100%;' name='emailExist[]'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['userId'] + "' style='width:100%;' name='userId[]' readonly='true' hidden='true'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['name'] + "'style='width:100%;'  name='name[]'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['address'] + "'style='width:100%;' name='address[]'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['positionId'] + "'style='width:100%;' name='positionId[]'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['groupId'] + "'style='width:100%;' name='groupId[]'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['status'] + "'style='width:100%;' name='status[]'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['phone'] + "'style='width:100%;' name='phone[]'></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['email'] + "'style='width:100%;' name='email[]'></td>",
                                 "<td><button type='button' class='btn' id='btnRemove'><bold>x</bold></button></td>"
                                 +"</tr>");
                     }
