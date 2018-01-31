@@ -60,7 +60,7 @@ $(document).ready(function(){
 
     $("#addRow").click(function(){
         $("#rowValue").append("<tr>"+
-        "<td><input class='actbut' type='text' value='' style='width:100%;' name='userId[]' hidden='true'></td>"+
+        "<td><input class='actbut' type='checkbox' value='' style='width:100%;' name='userId[]'></td>"+
         "<td><input class='actbut' type='text' value='' style='width:100%;' name='name[]'></td>"+
         "<td><input class='actbut' type='text' value='' style='width:100%;' name='address[]'></td>"+
         "<td><input class='actbut' type='text' value='' style='width:100%;' name='positionId[]'></td>"+
@@ -149,9 +149,7 @@ $(document).ready(function(){
                       "<input class='actbut' type='text' value='" + rows[i]['photo'] + "' style='width:100%;' name='photoExist[]' readonly='true' hidden='true'>",
 
                                 "<tr id='tdtodel'>"+
-                        // "<td class='tdcek'><input type='checkbox' class='emp_checkbox' name='cek[] id='cek[]'  data-emp-id='" + rows[i]['id'] + "'  /></td>",
-                                // "<td style='width:30px;'><input class='actbut' type='text' value ='" + nomor + "' style='width:100%;' readonly/></td>",
-                                "<td><input class='actbut' type='text' value='" + rows[i]['userId'] + "' style='width:100%;' name='userIdExist[]' readonly='true' hidden='true'></td>",
+                                "<td><input class='actbut' type='checkbox' value='" + rows[i]['userId'] + "' style='width:100%;' name='userIdExist[]' ><input type='text' name='userIdExist[]' value='"+ rows[i]['userId'] +"' hidden></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['name'] + "'style='width:100%;'  name='nameExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['address'] + "'style='width:100%;' name='addressExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['positionId'] + "'style='width:100%;' name='positionIdExist[]'></td>",
