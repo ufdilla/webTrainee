@@ -85,4 +85,16 @@ if (isset ($_POST['name']))
 }
 }
 
+// if(isset($_POST['btnDelete'])) {
+//     for ($i = 0; $i < $count; $i++) {
+//         $del_id = $checkbox[$i];
+//         $sql = "DELETE FROM users WHERE userId='$del_id'";
+//         $result = mysql_query($sql);
+//     }
+//     if ($result) {
+//         echo "<meta http-equiv=\"refresh\" content=\"0;URL=index.php\">";
+//     }
+// }
+// mysql_close();
+
 ?>

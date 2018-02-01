@@ -53,14 +53,12 @@ $(document).ready(function(){
     $("#hapus").click(function(){
         $(".actbut").remove();
     });
-
     $("#btnRemove").click(function(){
         $("#tdtodel").remove();
     });
-
     $("#addRow").click(function(){
         $("#rowValue").append("<tr>"+
-        "<td><input class='actbut' type='checkbox' value='' style='width:100%;' name='userId[]'></td>"+
+        "<td></td>"+
         "<td><input class='actbut' type='text' value='' style='width:100%;' name='name[]'></td>"+
         "<td><input class='actbut' type='text' value='' style='width:100%;' name='address[]'></td>"+
         "<td><input class='actbut' type='text' value='' style='width:100%;' name='positionId[]'></td>"+
@@ -72,16 +70,6 @@ $(document).ready(function(){
         "</tr>");
     });
 
-    function saveRows() {
-    var rowName = "<td><input class='actbut' type='text' value=''  name='name[]'></td>";
-    var rowAddress = "<td><input class='actbut' type='text' value=''  name='address[]'></td>";
-    var rowPosition = "<td><input class='actbut' type='text' value=''  name='positionId[]'></td>";
-    var rowGroup = "<td><input class='actbut' type='text' value=''  name='groupId[]'></td>";
-    var rowStatus = "<td><input class='actbut' type='text' value=''  name='status[]'></td>";
-    var rowPhone = "<td><input class='actbut' type='text' value=''  name='phone[]'></td>";
-    var rowEmail = "<td><input class='actbut' type='text' value=''  name='email[]'></td>";
-    $("body").append(rowName, rowAddress, rowPosition, rowGroup, rowStatus, rowPhone, rowEmail);
-}
 });
 </script>
 
@@ -115,8 +103,6 @@ $(document).ready(function(){
               <table style="margin-left: 20px;margin-right: 20px; " class="table table-hover table-bordered" id="example" class="display" cellspacing="0" width="100%" >
                 <thead>
                 <tr>
-                <!--  <th class="thcek" style="color:black; background-color: white;text-align:center">&nbsp;</th> 
-                  <th scope="row">No</th> -->
                   <th scope="row"></th> 
                   <th scope="row">Nama</th>
                   <th scope="row">Alamat</th>
@@ -132,7 +118,6 @@ $(document).ready(function(){
                 <?php
                 $result = mysql_query("SELECT * FROM users ");
                 $indexinsert = 0;
-
                 $dServer = array();
                 $rows = array();
                 while ($row = mysql_fetch_assoc($result)) {
@@ -147,9 +132,8 @@ $(document).ready(function(){
                       document.write(
                       "<input class='actbut' type='text' value='" + rows[i]['password'] + "' style='width:100%;' name='passwordExist[]' readonly='true' hidden='true'>",
                       "<input class='actbut' type='text' value='" + rows[i]['photo'] + "' style='width:100%;' name='photoExist[]' readonly='true' hidden='true'>",
-
                                 "<tr id='tdtodel'>"+
-                                "<td><input class='actbut' type='checkbox' value='" + rows[i]['userId'] + "' style='width:100%;' name='userIdExist[]' ><input type='text' name='userIdExist[]' value='"+ rows[i]['userId'] +"' hidden></td>",
+                                "<td><input type='text' name='userIdExist[]' value='"+ rows[i]['userId'] +"' hidden></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['name'] + "'style='width:100%;'  name='nameExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['address'] + "'style='width:100%;' name='addressExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['positionId'] + "'style='width:100%;' name='positionIdExist[]'></td>",
@@ -195,7 +179,7 @@ $(document).ready(function(){
     </div>
  </footer>
 
-  <a class="scrolltop" href="#"><span class="fa fa-angle-up"></span></a>
+  <a class="scrolltop" href="index.php"><span class="fa fa-angle-up"></span></a>
 
   <!-- Required JavaScript Libraries -->
   <script src="lib/jquery/jquery.min.js"></script>
