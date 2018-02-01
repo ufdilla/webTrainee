@@ -99,7 +99,7 @@ $(document).ready(function(){
     <div class="container text-center">
        <div class="col-md-12">
          <div oncontextmenu ="event.preventDefault();$('#context-menu').show();$('#context-menu').offset({'top':mouseY,'left':mouseX})">
-            <form action="inputData.php" method="post" id="formtable">
+            <form action="inputData.php" method="POST" id="formtable">
               <table style="margin-left: 20px;margin-right: 20px; " class="table table-hover table-bordered" id="example" class="display" cellspacing="0" width="100%" >
                 <thead>
                 <tr>
@@ -116,7 +116,7 @@ $(document).ready(function(){
                 </thead>
                 <tbody  id='rowValue'>
                 <?php
-                $result = mysql_query("SELECT * FROM users ");
+                $result = mysql_query("SELECT * FROM users order by userId Desc");
                 $indexinsert = 0;
                 $dServer = array();
                 $rows = array();
@@ -141,7 +141,7 @@ $(document).ready(function(){
                                 "<td><input class='actbut' type='text' value='" + rows[i]['status'] + "'style='width:100%;' name='statusExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['phone'] + "'style='width:100%;' name='phoneExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['email'] + "'style='width:100%;' name='emailExist[]'></td>",
-                                "<td><button type='button' class='btn' id='btnRemove'><bold>x</bold></button></td>"
+                                "<td class='table-dark'><a href='delete.php?userId=" + rows[i]['userId'] + "'><bold>x</bold></a></td>"
                                 +"</tr>");
                     }
                 </script>
