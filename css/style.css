@@ -106,6 +106,7 @@ section {
 
 a:hover {
     text-decoration: none !important;
+    color: hotpink;
 }
 
 .scrolltop {
@@ -330,13 +331,14 @@ a:hover {
 /* Nav Meu Styling */
 
 .nav-menu a {
-    padding: 22px 15px 18px 15px;
+    /* padding: 22px 15px 18px 15px; */
     text-decoration: none;
+    align: center;
     display: inline-block;
     color: #fff;
     font-family: "Roboto", Helvetica, Arial, sans-serif;
     font-weight: 300;
-    font-size: 15px;
+    font-size: 100%;
     outline: none;
 }
 

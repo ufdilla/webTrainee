@@ -61,17 +61,11 @@ include 'dbCon.php';
  <script>
   var rowsData = <?php echo json_encode($rowsData); ?>;
   var rowsData_arr = rowsData.toString().split(',');
-  // var cells = <?php 
-  //               echo "<select>";
-  //               echo "<option>";
-  //               echo "</option>";
-  //               echo "</select>";
-  //               ?>
 
 $(document).ready(function(){
-  $("#hapus").click(function(){
-      $("#addRow").empty();
-  });
+  // $("#hapus").click(function(){
+  //     $("#addRow").empty();
+  // });
 
   // $("#btnRemove").click(function(){
   //     $("#tdtodel").remove();
@@ -87,7 +81,7 @@ $(document).ready(function(){
       "<td><input class='actbut' type='text' value='' style='width:100%;' name='status[]'></td>"+
       "<td><input class='actbut' type='text' value='' style='width:100%;' name='phone[]'></td>"+
       "<td><input class='actbut' type='text' value='' style='width:100%;' name='email[]'></td>"+
-      "<td><button type='button' id='hapus' ><bold>x</bold></button></td>"+
+      "<td class='table-dark'><a href='#'><bold>x</bold></a></td>"+
       "</tr>");
   });
 });
