@@ -120,7 +120,7 @@ $(document).ready(function(){
                 </thead>
                 <tbody  id='rowValue'>
                 <?php
-                $result = mysql_query("SELECT * FROM users RIGHT OUTER JOIN groupEs ON users.groupId = groupEs.groupId RIGHT OUTER JOIN positionEs ON users.positionId = positionEs.positionId  order by userId Desc");
+                $result = mysql_query("SELECT * FROM users JOIN groupEs ON users.groupId = groupEs.groupId RIGHT OUTER JOIN positionEs ON users.positionId = positionEs.positionId  order by userId Desc");
                 $indexinsert = 0;
 
                 $dServer = array();
@@ -149,7 +149,7 @@ $(document).ready(function(){
                                 "<td><input class='actbut' type='text' value='" + rows[i]['status'] + "'style='width:100%;' name='statusExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['phone'] + "'style='width:100%;' name='phoneExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['email'] + "'style='width:100%;' name='emailExist[]'></td>",
-                                "<td><a href=''></a></td>"
+                                "<td><a href='delete_pg.php?userId="+ rows[i]['userId'] +"'><bold>x</bold></a></td>"
                                 +"</tr>");
                     }
                 </script>
