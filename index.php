@@ -43,45 +43,47 @@ include 'dbCon.php';
 
 </head>
 
-<script type="text/javascript" src="script/delete_script.js"></script>
+<!-- <script type="text/javascript" src="script/delete_script.js"></script> -->
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
  <script src="jquery-3.3.1.min.js"></script>
 
+ <?php
+  $data = mysql_query("SELECT * FROM position ");
+  $indexins = 0;
+  $dataServer = array();
+  $rowsData = array();
+  while ($rowData = mysql_fetch_assoc($data)) {
+    $rowsData[] = $rowData;
+  }
+?>
+
  <script>
+  var rowsData = <?php echo json_encode($rowsData); ?>;
+  var rowsData_arr = rowsData.toString().split(',');
+
 $(document).ready(function(){
-    $("#hapus").click(function(){
-        $(".actbut").remove();
-    });
+  // $("#hapus").click(function(){
+  //     $("#addRow").empty();
+  // });
 
-    $("#btnRemove").click(function(){
-        $("#tdtodel").remove();
-    });
+  // $("#btnRemove").click(function(){
+  //     $("#tdtodel").remove();
+  // });
 
-    $("#addRow").click(function(){
-        $("#rowValue").append("<tr>"+
-        "<td><input class='actbut' type='text' value='' style='width:100%;' name='userId[]' hidden='true'></td>"+
-        "<td><input class='actbut' type='text' value='' style='width:100%;' name='name[]'></td>"+
-        "<td><input class='actbut' type='text' value='' style='width:100%;' name='address[]'></td>"+
-        "<td><input class='actbut' type='text' value='' style='width:100%;' name='positionId[]'></td>"+
-        "<td><input class='actbut' type='text' value='' style='width:100%;' name='groupId[]'></td>"+
-        "<td><input class='actbut' type='text' value='' style='width:100%;' name='status[]'></td>"+
-        "<td><input class='actbut' type='text' value='' style='width:100%;' name='phone[]'></td>"+
-        "<td><input class='actbut' type='text' value='' style='width:100%;' name='email[]'></td>"+
-        "<td><button  class='btn btn-link' id='btnClass' ><bold>x</bold></button></td>"+
-        "</tr>");
-    });
-
-    function saveRows() {
-    var rowName = "<td><input class='actbut' type='text' value=''  name='name[]'></td>";
-    var rowAddress = "<td><input class='actbut' type='text' value=''  name='address[]'></td>";
-    var rowPosition = "<td><input class='actbut' type='text' value=''  name='positionId[]'></td>";
-    var rowGroup = "<td><input class='actbut' type='text' value=''  name='groupId[]'></td>";
-    var rowStatus = "<td><input class='actbut' type='text' value=''  name='status[]'></td>";
-    var rowPhone = "<td><input class='actbut' type='text' value=''  name='phone[]'></td>";
-    var rowEmail = "<td><input class='actbut' type='text' value=''  name='email[]'></td>";
-    $("body").append(rowName, rowAddress, rowPosition, rowGroup, rowStatus, rowPhone, rowEmail);
-}
+  $("#addRow").click(function(){
+      $("#rowValue").append("<tr>"+
+      "<td></td>"+
+      "<td><input class='actbut' type='text' value='' style='width:100%;' name='name[]'></td>"+
+      "<td><input class='actbut' type='text' value='' style='width:100%;' name='address[]'></td>"+
+      "<td><input class='actbut' type='text' value='' style='width:100%;' name='positionId[]'></td>"+
+      "<td><input class='actbut' type='text' value='' style='width:100%;' name='groupId[]'></td>"+
+      "<td><input class='actbut' type='text' value='' style='width:100%;' name='status[]'></td>"+
+      "<td><input class='actbut' type='text' value='' style='width:100%;' name='phone[]'></td>"+
+      "<td><input class='actbut' type='text' value='' style='width:100%;' name='email[]'></td>"+
+      "<td class='table-dark'><a href='#'><bold>x</bold></a></td>"+
+      "</tr>");
+  });
 });
 </script>
 
@@ -111,13 +113,11 @@ $(document).ready(function(){
     <div class="container text-center">
        <div class="col-md-12">
          <div oncontextmenu ="event.preventDefault();$('#context-menu').show();$('#context-menu').offset({'top':mouseY,'left':mouseX})">
-            <form action="inputData.php" method="post" id="formtable">
+            <form action="inputData.php" method="POST" id="formtable">
               <table style="margin-left: 20px;margin-right: 20px; " class="table table-hover table-bordered" id="example" class="display" cellspacing="0" width="100%" >
                 <thead>
                 <tr>
-                <!--  <th class="thcek" style="color:black; background-color: white;text-align:center">&nbsp;</th> 
-                  <th scope="row">No</th> -->
-                  <th scope="row"></th> 
+                  <th scope="row"></th>
                   <th scope="row">Nama</th>
                   <th scope="row">Alamat</th>
                   <th scope="row">Posisi</th>
@@ -130,9 +130,8 @@ $(document).ready(function(){
                 </thead>
                 <tbody  id='rowValue'>
                 <?php
-                $result = mysql_query("SELECT * FROM users ");
+                $result = mysql_query("SELECT * FROM users order by userId Desc");
                 $indexinsert = 0;
-
                 $dServer = array();
                 $rows = array();
                 while ($row = mysql_fetch_assoc($result)) {
@@ -147,29 +146,25 @@ $(document).ready(function(){
                       document.write(
                       "<input class='actbut' type='text' value='" + rows[i]['password'] + "' style='width:100%;' name='passwordExist[]' readonly='true' hidden='true'>",
                       "<input class='actbut' type='text' value='" + rows[i]['photo'] + "' style='width:100%;' name='photoExist[]' readonly='true' hidden='true'>",
-
                                 "<tr id='tdtodel'>"+
-                        // "<td class='tdcek'><input type='checkbox' class='emp_checkbox' name='cek[] id='cek[]'  data-emp-id='" + rows[i]['id'] + "'  /></td>",
-                                // "<td style='width:30px;'><input class='actbut' type='text' value ='" + nomor + "' style='width:100%;' readonly/></td>",
-                                "<td><input class='actbut' type='text' value='" + rows[i]['userId'] + "' style='width:100%;' name='userIdExist[]' readonly='true' hidden='true'></td>",
+                                "<td><input type='text' name='userIdExist[]' value='"+ rows[i]['userId'] +"' hidden></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['name'] + "'style='width:100%;'  name='nameExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['address'] + "'style='width:100%;' name='addressExist[]'></td>",
-                                "<td><input class='actbut' type='text' value='" + rows[i]['positionId'] + "'style='width:100%;' name='positionIdExist[]'></td>",
-                                "<td><input class='actbut' type='text' value='" + rows[i]['groupId'] + "'style='width:100%;' name='groupIdExist[]'></td>",
+                                "<td><select name='positionIdExist[]'><option value='" + rows[i]['positionId'] + "'>" + rows[i]['positionId'] + "</option></select></td>",
+                                "<td><select name='groupIdExist[]'><option value='" + rows[i]['groupId'] + "'>" + rows[i]['groupId'] + "</option></select></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['status'] + "'style='width:100%;' name='statusExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['phone'] + "'style='width:100%;' name='phoneExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['email'] + "'style='width:100%;' name='emailExist[]'></td>",
-                                "<td><button type='button' class='btn' id='btnRemove'><bold>x</bold></button></td>"
+                                "<td class='table-dark'><a href='delete.php?userId=" + rows[i]['userId'] + "'><bold>x</bold></a></td>"
                                 +"</tr>");
                     }
                 </script>
                 </tbody>
               </table>
-              
+
               <div style="margin-left:10px;" class="btn-group">
                 <button  type="button"  class="btn" id="addRow">Add</button>
                 <button  type="Submit"  class="btn" id="">Save</button>
-                <button type="button" class="btn" id="hapus" >Delete All</button>
                 <button class="btn" type="button" onClick="location.reload();" VALUE="Reset">Refresh</button>
               </div>
             </form>
@@ -197,7 +192,7 @@ $(document).ready(function(){
     </div>
  </footer>
 
-  <a class="scrolltop" href="#"><span class="fa fa-angle-up"></span></a>
+  <a class="scrolltop" href="index.php"><span class="fa fa-angle-up"></span></a>
 
   <!-- Required JavaScript Libraries -->
   <script src="lib/jquery/jquery.min.js"></script>

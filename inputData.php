@@ -2,10 +2,10 @@
 
 include "dbCon.php";
 
-if (isset ($_POST['userId']))
+if (isset ($_POST['name']))
 {
-    $userId = $_POST['userId'];
-    $password = $_POST['password'];
+    // $userId = $_POST['userId'];
+    // $password = $_POST['password'];
     $name = $_POST['name'];
     $address = $_POST['address'];
     $positionId = $_POST['positionId'];
@@ -13,15 +13,15 @@ if (isset ($_POST['userId']))
     $status = $_POST['status'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
-    $photo = $_POST['photo'];
-    
-    $rowsCount = count($userId);
-    
+    // $photo = $_POST['photo'];
+
+    $rowsCount = count($name);
+
     for ($i=0; $i < $rowsCount; $i++) {
         $query = "INSERT INTO users (`userId`, `password`, `name`, `address`, `positionId`, `groupId`, `status`, `phone`, `email`, `photo`)
                     values ('', 'passwd', '$name[$i]', '$address[$i]', '$positionId[$i]', '$groupId[$i]', '$status[$i]', '$phone[$i]', '$email[$i]', 'NULL')";
         $query_exec = mysql_query($query, $connector);
-    
+
     if ($query_exec)
     {
         header("Location: index.php");
@@ -32,18 +32,18 @@ if (isset ($_POST['userId']))
 }
 }
 
- if (isset($_POST['userIdExist']))
-{
-$userIdExist = $_POST['userIdExist'];
-$passwordExist = $_POST['passwordExist'];
-$nameExist = $_POST['nameExist'];
-$addressExist = $_POST['addressExist'];
-$positionIdExist = $_POST['positionIdExist'];
-$groupIdExist= $_POST['groupIdExist'];
-$statusExist = $_POST['statusExist'];
-$phoneExist = $_POST['phoneExist'];
-$emailExist = $_POST['emailExist'];
-$photoExist = $_POST['photoExist'];
+ if (isset($_POST['nameExist']))
+    {
+    $userIdExist = $_POST['userIdExist'];
+    $passwordExist = $_POST['passwordExist'];
+    $nameExist = $_POST['nameExist'];
+    $addressExist = $_POST['addressExist'];
+    $positionIdExist = $_POST['positionIdExist'];
+    $groupIdExist= $_POST['groupIdExist'];
+    $statusExist = $_POST['statusExist'];
+    $phoneExist = $_POST['phoneExist'];
+    $emailExist = $_POST['emailExist'];
+    $photoExist = $_POST['photoExist'];
 
 // echo $userIdExist;
         $rowsCount2 = count($userIdExist);
@@ -84,5 +84,17 @@ $photoExist = $_POST['photoExist'];
     }
 }
 }
+
+// if(isset($_POST['btnDelete'])) {
+//     for ($i = 0; $i < $count; $i++) {
+//         $del_id = $checkbox[$i];
+//         $sql = "DELETE FROM users WHERE userId='$del_id'";
+//         $result = mysql_query($sql);
+//     }
+//     if ($result) {
+//         echo "<meta http-equiv=\"refresh\" content=\"0;URL=index.php\">";
+//     }
+// }
+// mysql_close();
 
 ?>
