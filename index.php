@@ -43,47 +43,37 @@ include 'dbCon.php';
 
 </head>
 
-<!-- <script type="text/javascript" src="script/delete_script.js"></script> -->
+<script type="text/javascript" src="script/delete_script.js"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
  <script src="jquery-3.3.1.min.js"></script>
 
- <?php
-  $data = mysql_query("SELECT * FROM position ");
-  $indexins = 0;
-  $dataServer = array();
-  $rowsData = array();
-  while ($rowData = mysql_fetch_assoc($data)) {
-    $rowsData[] = $rowData;
-  }
-?>
-
  <script>
-  var rowsData = <?php echo json_encode($rowsData); ?>;
-  var rowsData_arr = rowsData.toString().split(',');
-
 $(document).ready(function(){
-  // $("#hapus").click(function(){
-  //     $("#addRow").empty();
-  // });
+    $("#hapus").click(function(){
+        $(".actbut").remove();
+    });
 
-  // $("#btnRemove").click(function(){
-  //     $("#tdtodel").remove();
-  // });
+    $("#btnRemove").click(function(){
+        $("#tdtodel").remove();
+    });
 
-  $("#addRow").click(function(){
-      $("#rowValue").append("<tr>"+
-      "<td></td>"+
-      "<td><input class='actbut' type='text' value='' style='width:100%;' name='name[]'></td>"+
-      "<td><input class='actbut' type='text' value='' style='width:100%;' name='address[]'></td>"+
-      "<td><input class='actbut' type='text' value='' style='width:100%;' name='positionId[]'></td>"+
-      "<td><input class='actbut' type='text' value='' style='width:100%;' name='groupId[]'></td>"+
-      "<td><input class='actbut' type='text' value='' style='width:100%;' name='status[]'></td>"+
-      "<td><input class='actbut' type='text' value='' style='width:100%;' name='phone[]'></td>"+
-      "<td><input class='actbut' type='text' value='' style='width:100%;' name='email[]'></td>"+
-      "<td class='table-dark'><a href='#'><bold>x</bold></a></td>"+
-      "</tr>");
-  });
+    $("#addRow").click(function(){
+        $("#rowValue").append("<tr>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='userId[]' hidden='true'></td>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='name[]'></td>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='address[]'></td>"+
+        // "<td><input class='actbut' type='text' value='' style='width:100%;' name='positionId[]'></td>"+
+        "<td><select name='positionId[]'><option value='11'>Programmer</option><option value='12'>Quality Assurance</option><option value='13'>Manager</option><option value='14'>Analyst System</option><option value='15'>Database Administrator</option></select></td>"+
+        // "<td><input class='actbut' type='text' value='' style='width:100%;' name='groupId[]'></td>"+
+        "<td><select name='groupId[]'><option value='1'>BS</option><option value='2'>PS</option><option value='3'>IS</option></select></td>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='status[]'></td>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='phone[]'></td>"+
+        "<td><input class='actbut' type='text' value='' style='width:100%;' name='email[]'></td>"+
+        "<td><></td>"+
+        "</tr>");
+    });
+
 });
 </script>
 
@@ -117,7 +107,7 @@ $(document).ready(function(){
               <table style="margin-left: 20px;margin-right: 20px; " class="table table-hover table-bordered" id="example" class="display" cellspacing="0" width="100%" >
                 <thead>
                 <tr>
-                  <th scope="row"></th>
+                  <th scope="row"></th> 
                   <th scope="row">Nama</th>
                   <th scope="row">Alamat</th>
                   <th scope="row">Posisi</th>
@@ -130,8 +120,9 @@ $(document).ready(function(){
                 </thead>
                 <tbody  id='rowValue'>
                 <?php
-                $result = mysql_query("SELECT * FROM users order by userId Desc");
+                $result = mysql_query("SELECT * FROM users JOIN groupEs ON users.groupId = groupEs.groupId RIGHT OUTER JOIN positionEs ON users.positionId = positionEs.positionId  order by userId Desc");
                 $indexinsert = 0;
+
                 $dServer = array();
                 $rows = array();
                 while ($row = mysql_fetch_assoc($result)) {
@@ -146,16 +137,19 @@ $(document).ready(function(){
                       document.write(
                       "<input class='actbut' type='text' value='" + rows[i]['password'] + "' style='width:100%;' name='passwordExist[]' readonly='true' hidden='true'>",
                       "<input class='actbut' type='text' value='" + rows[i]['photo'] + "' style='width:100%;' name='photoExist[]' readonly='true' hidden='true'>",
+
                                 "<tr id='tdtodel'>"+
-                                "<td><input type='text' name='userIdExist[]' value='"+ rows[i]['userId'] +"' hidden></td>",
+                                "<td><input class='actbut' type='text' value='" + rows[i]['userId'] + "' style='width:100%;' name='userIdExist[]' readonly='true' hidden='true'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['name'] + "'style='width:100%;'  name='nameExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['address'] + "'style='width:100%;' name='addressExist[]'></td>",
-                                "<td><select name='positionIdExist[]'><option value='" + rows[i]['positionId'] + "'>" + rows[i]['positionId'] + "</option></select></td>",
-                                "<td><select name='groupIdExist[]'><option value='" + rows[i]['groupId'] + "'>" + rows[i]['groupId'] + "</option></select></td>",
+                                // "<td><input class='actbut' type='text' value='" + rows[i]['positionId'] + "'style='width:100%;' name='positionIdExist[]'></td>",
+                                "<td><select name='positionIdExist[]'><option value='" + rows[i]['positionId'] + "'>" + rows[i]['positionName'] + "</option></select>  </td>",
+                                // "<td><input class='actbut' type='text' value='" + rows[i]['groupId'] + "'style='width:100%;' name='groupIdExist[]'></td>",
+                                "<td><select name='groupIdExist[]'><option value='" + rows[i]['groupId'] + "'>" + rows[i]['groupName'] + "</option></select>  </td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['status'] + "'style='width:100%;' name='statusExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['phone'] + "'style='width:100%;' name='phoneExist[]'></td>",
                                 "<td><input class='actbut' type='text' value='" + rows[i]['email'] + "'style='width:100%;' name='emailExist[]'></td>",
-                                "<td class='table-dark'><a href='delete.php?userId=" + rows[i]['userId'] + "'><bold>x</bold></a></td>"
+                                "<td><a href='delete_pg.php?userId="+ rows[i]['userId'] +"'><bold>x</bold></a></td>"
                                 +"</tr>");
                     }
                 </script>
@@ -165,6 +159,7 @@ $(document).ready(function(){
               <div style="margin-left:10px;" class="btn-group">
                 <button  type="button"  class="btn" id="addRow">Add</button>
                 <button  type="Submit"  class="btn" id="">Save</button>
+                <!-- <button type="button" class="btn" id="hapus" >Delete All</button> -->
                 <button class="btn" type="button" onClick="location.reload();" VALUE="Reset">Refresh</button>
               </div>
             </form>
@@ -192,7 +187,7 @@ $(document).ready(function(){
     </div>
  </footer>
 
-  <a class="scrolltop" href="index.php"><span class="fa fa-angle-up"></span></a>
+  <a class="scrolltop" href="#"><span class="fa fa-angle-up"></span></a>
 
   <!-- Required JavaScript Libraries -->
   <script src="lib/jquery/jquery.min.js"></script>
